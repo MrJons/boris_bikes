@@ -1,39 +1,36 @@
 require 'docking_station'
 
-docking_station = DockingStation.new
-bike = docking_station.release_bike
-
 describe DockingStation do
 
   it "when asking DockingStation to release_bike, a bike is released" do
-    expect(docking_station).to respond_to(:release_bike)
+    expect(subject).to respond_to(:release_bike)
   end
 
   it "released working bikes" do
-    bike = docking_station.release_bike
-    expect(bike).to be_working
+    bikes = Bike.new
+    expect(bikes).to be_working
   end
 
   it "docks bike at docking station" do
-    expect(docking_station).to respond_to(:bike)
+    expect(subject).to respond_to(:bikes)
     end
 
   it "docks something" do
-    bike = Bike.new
-    expect(subject.dock(bike)).to eq bike
+    bikes = Bike.new
+    expect(subject.dock(bikes)).to eq [bikes]
   end
 
   it "returns docked bikes" do
-    bike = Bike.new
-    subject.dock(bike)
-    expect(subject.bike).to eq bike
+    bikes = Bike.new
+    subject.dock(bikes)
+    expect(subject.bikes).to eq [bikes]
   end
 
   describe "#release_bike" do
     it "releases a bike" do
-      bike = Bike.new
-      subject.dock(bike)
-      expect(subject.release_bike).to eq(bike)
+      bikes = Bike.new
+      subject.dock(bikes)
+      expect(subject.bikes).to eq [bikes]
     end
 
     it "raises an error when there are no bikes available" do
@@ -43,8 +40,8 @@ describe DockingStation do
 
   describe "#dock" do
     it "raises error when there is no capacity" do
-      bike = Bike.new
-      expect { subject.dock(bike) }.to raise_error "there is no capacity"
+      20.times {subject.dock Bike.new}
+      expect { subject.dock(Bike.new) }.to raise_error "there is no capacity"
     end
   end
 end
