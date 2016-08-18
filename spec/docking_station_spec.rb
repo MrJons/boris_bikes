@@ -3,43 +3,45 @@ require 'docking_station'
 describe DockingStation do
 
   it "when asking DockingStation to release_bike, a bike is released" do
-    expect(subject).to respond_to(:release_bike)
+    expect(subject).to respond_to(:release_bike) #WHy do we need to pass the release_bike method as a symbol
   end
 
   it "released working bikes" do
-    bikes = Bike.new
-    expect(bikes).to be_working
+    bike = Bike.new
+    expect(bike).to be_working
   end
 
   it "docks bike at docking station" do
-    expect(subject).to respond_to(:bikes)
+    expect(subject).to respond_to(:dock)
     end
 
-  it "docks something" do
-    bikes = Bike.new
-    expect(subject.dock(bikes)).to eq [bikes]
+  it "docks the particular bike" do
+    bike = Bike.new
+    expect(subject.dock(bike)).to eq [bike] #this test only works when one bike exists
   end
 
-  it "returns docked bikes" do
-    bikes = Bike.new
-    subject.dock(bikes)
-    expect(subject.bikes).to eq [bikes]
+  it "the particular is bike I've docked is amongst the docked bikes" do
+    bike1 = Bike.new
+    bike2 = Bike.new
+    subject.dock(bike1)
+    expect(subject.dock(bike2)).to include bike1
   end
 
   describe "#release_bike" do
     it "releases a bike" do
-      bikes = Bike.new
-      subject.dock(bikes)
-      expect(subject.bikes).to eq [bikes]
+      bike = Bike.new
+      subject.dock(bike)
+      expect(subject.release_bike).to eq bike
     end
 
     it "raises an error when there are no bikes available" do
+#because we don't dock any bikes in this test, there should be none available
       expect { subject.release_bike }.to raise_error "no bikes available"
     end
   end
 
   describe "#dock" do
-    it "raises error when there is no capacity" do
+    it "raises error when there is no more capacity" do
       20.times {subject.dock Bike.new}
       expect { subject.dock(Bike.new) }.to raise_error "there is no capacity"
     end

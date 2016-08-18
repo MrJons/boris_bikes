@@ -17,6 +17,10 @@ class DockingStation
   end
 
   attr_reader :bikes
+#### THIS IS WHAT THE attr_reader DOES..... ###
+#def bikes
+#  @bikes
+#end
 
   private
 
