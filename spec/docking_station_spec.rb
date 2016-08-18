@@ -42,7 +42,7 @@ describe DockingStation do
 
   describe "#dock" do
     it "raises error when there is no more capacity" do
-      20.times {subject.dock Bike.new}
+        DockingStation::DEFAULT_CAPACITY.times {subject.dock Bike.new}
       expect { subject.dock(Bike.new) }.to raise_error "there is no capacity"
     end
   end
