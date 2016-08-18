@@ -7,6 +7,7 @@ DEFAULT_CAPACITY = 20
   def initialize(capacity = DEFAULT_CAPACITY)
     @capacity = capacity
     @bikes = []
+    @working = true
   end
 
   def dock(bike)
@@ -16,7 +17,12 @@ DEFAULT_CAPACITY = 20
 
   def release_bike
     fail "no bikes available" if station_empty?
+    fail "bike broken" unless @working
     @bikes.pop
+  end
+
+  def report(bike)
+    @working = false
   end
 
   attr_reader :capacity
@@ -24,10 +30,10 @@ DEFAULT_CAPACITY = 20
 #def bikes
 #  @bikes
 #end
+attr_reader :bikes
 
   private
 
-  attr_reader :bikes
 
   def full?
     bikes.count >= @capacity

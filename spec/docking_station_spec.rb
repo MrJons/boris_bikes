@@ -35,17 +35,36 @@ describe DockingStation do
       expect(subject.release_bike).to eq bike
     end
 
+    it "should not release a broken bike" do
+      bike = Bike.new
+      subject.dock(subject.report(bike))
+      expect { subject.release_bike }.to raise_error "bike broken"
+    end
+
     it "raises an error when there are no bikes available" do
 #because we don't dock any bikes in this test, there should be none available
       expect { subject.release_bike }.to raise_error "no bikes available"
     end
   end
 
+
   describe "#dock" do
     it "raises error when there is no more capacity" do
         DockingStation::DEFAULT_CAPACITY.times {subject.dock Bike.new}
       expect { subject.dock(Bike.new) }.to raise_error "there is no capacity"
     end
+    it "checks bikes can be reported when docking" do
+      bike = Bike.new
+      subject.dock(subject.report(bike))
+    end
+
+    it "broken bikes are still allowed to be docked" do
+      pending "To satisfy this test, approach reporting differently eg.use Bike class"
+      bike = Bike.new
+      subject.dock(subject.report(bike)) #dock and report broken bike
+      expect(subject.bikes).to eq bike
+    end
+  end
 
   describe "capacity" do
     #Test calls new instance of subject and passes to 'its' test.
@@ -54,5 +73,4 @@ describe DockingStation do
     end
 
     its(:capacity){should eq(subject.capacity)}
-  end
 end
