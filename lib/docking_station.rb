@@ -12,7 +12,7 @@ class DockingStation
   end
 
   def release_bike
-    fail "no bikes available" if @bikes.empty?
+    fail "no bikes available" if station_empty?
     @bikes.pop
   end
 
@@ -26,6 +26,10 @@ class DockingStation
 
   def full?
     @bikes.count >= 20
+  end
+
+  def station_empty?
+    @bikes.empty?
   end
 
 end
