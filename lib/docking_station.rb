@@ -7,7 +7,7 @@ class DockingStation
   end
 
   def dock(bike)
-    fail "there is no capacity" if @bikes.count >= 20
+    fail "there is no capacity" if full?
     @bikes << bike
   end
 
@@ -16,6 +16,14 @@ class DockingStation
     @bikes.pop
   end
 
-attr_reader :bikes
+  attr_reader :bikes
+
+  private
+
+  def full?
+    if @bikes.count >= 20
+      true
+    end
+  end
 
 end
