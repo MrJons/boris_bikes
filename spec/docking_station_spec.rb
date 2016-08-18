@@ -1,4 +1,5 @@
 require 'docking_station'
+require 'rspec/its'
 
 describe DockingStation do
 
@@ -45,5 +46,13 @@ describe DockingStation do
         DockingStation::DEFAULT_CAPACITY.times {subject.dock Bike.new}
       expect { subject.dock(Bike.new) }.to raise_error "there is no capacity"
     end
+
+  describe "capacity" do
+    #Test calls new instance of subject and passes to 'its' test.
+    subject{DockingStation.new(30)}
+    its(:capacity){should eq(subject.capacity)}
+    end
+
+    its(:capacity){should eq(subject.capacity)}
   end
 end
