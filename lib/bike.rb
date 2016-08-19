@@ -2,7 +2,9 @@ require_relative 'docking_station'
 
 class Bike
 
-  attr_reader :working
+  def working
+    @working
+  end
 
   def initialize
     @working = true
