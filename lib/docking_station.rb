@@ -30,7 +30,7 @@ DEFAULT_CAPACITY = 20
 #def bikes
 #  @bikes
 #end
-attr_reader :bikes
+attr_reader :bikes, :broken_bikes
 
   private
 
