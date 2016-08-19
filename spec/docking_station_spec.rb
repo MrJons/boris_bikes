@@ -7,11 +7,6 @@ describe DockingStation do
     expect(subject).to respond_to(:release_bike) #WHy do we need to pass the release_bike method as a symbol
   end
 
-  it "released working bikes" do
-    bike = Bike.new
-    expect(bike).to be_working
-  end
-
   it "docks bike at docking station" do
     expect(subject).to respond_to(:dock)
     end
@@ -59,10 +54,11 @@ describe DockingStation do
     end
 
     it "broken bikes are still allowed to be docked" do
-      pending "To satisfy this test, approach reporting differently eg.use Bike class"
+      "To satisfy this test, approach reporting differently eg.use Bike class"
       bike = Bike.new
-      subject.dock(subject.report(bike)) #dock and report broken bike
-      expect(subject.bikes).to eq bike
+      bike.report_broken
+      subject.dock(bike) #dock and report broken bike
+      expect(subject.bikes).to eq [bike]
     end
   end
 
