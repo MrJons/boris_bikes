@@ -12,7 +12,7 @@ DEFAULT_CAPACITY = 20
 
   def dock(bike)
     fail "there is no capacity" if full?
-    if @working == true
+    if bike.working?
       @bikes << bike
     else
       @broken_bikes << bike

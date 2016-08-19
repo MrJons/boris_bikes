@@ -56,7 +56,7 @@ describe DockingStation do
       bike = Bike.new
       bike.report_broken
        #dock and report broken bike
-      expect(subject.dock(bike)).to eq @broken_bikes
+      expect(subject.dock(bike)).to eq [bike]
     end
   end
 
